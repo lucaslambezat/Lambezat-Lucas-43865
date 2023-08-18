@@ -5,8 +5,8 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     
-    #Si a continuación de la ruta aplicación no aparece nada. Entonces se ejecuta la función index dentro de views.py
-    path('', index, name='inicio'),
+    path('', index, name='inicio'),     #Si a continuación de la ruta aplicación no aparece nada,se ejecuta la función index.
+    path('about/', about, name='about'),
 
     path('equipos/', EquipoList.as_view(), name='equipos'),
     path('create_equipo', EquipoCreate.as_view(), name='create_equipo'),
@@ -33,6 +33,14 @@ urlpatterns = [
     path('delete_mantenimiento/<int:pk>/', MantenimientoDelete.as_view(), name='delete_mantenimiento'),
     path('busqueda_mantenimiento/', busquedaMantenimiento, name='busqueda_mantenimiento'),
     path('buscar_mantenimiento/', buscarMantenimiento),
+
+    path('posts/', PostList.as_view(), name='posts'),
+    path('create_post', PostCreate.as_view(), name='create_post'),
+    path('detail_post/<int:pk>/', PostDetail.as_view(), name='detail_post'),
+    path('update_post/<int:pk>/', PostUpdate.as_view(), name='update_post'),
+    path('delete_post/<int:pk>/', PostDelete.as_view(), name='delete_post'),
+    path('busqueda_post/', busquedaPost, name='busqueda_post'),
+    path('buscar_post/', buscarPost),
 
     path('login/', login_request, name='login'),
     path('logout/', LogoutView.as_view(template_name="aplicacion/logout.html"), name="logout"),

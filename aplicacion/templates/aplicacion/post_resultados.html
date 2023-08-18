@@ -1,0 +1,56 @@
+{% extends 'aplicacion/post_list.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<h4>
+    Resultado de la búsqueda para el título: {{titulo}}
+</h4>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+    <tr>
+        <td>{{ post.titulo }}</td>
+        <td>{{ post.autor }}</td>
+        <td>{{ post.fecha_public }}</td>
+        <td>
+            <a
+            href="{% url 'detail_post' post.id %}"
+            class="btn btn-info"
+            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+            ><i class="fa fa-search fa-sm" title="View Record"></i>
+            </a>
+            <a
+              href="{% url 'update_post' post.id %}"
+              class="btn btn-primary"
+              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+              ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+            </a>
+            <a
+              href="{% url 'delete_post' post.id %}"
+              class="btn btn-danger"
+              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+              ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+            </a>
+          </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<div class="d-flex justify-content-center mb-4">
+    <a class="btn btn-primary text-uppercase" href="{% url 'busqueda_post' %}">Volver →</a>
+</div>
+
+<br>
+
+{% endblock contenido %}

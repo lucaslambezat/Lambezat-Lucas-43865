@@ -12,6 +12,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Clean Blog - Start Bootstrap Theme</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -31,29 +32,60 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0 align-items-center">
                         {% if user.is_authenticated  %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'inicio' %}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'equipos' %}">Equipos</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'mantenimientos' %}">Mantenimientos</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'empleados' %}">Empleados</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">{{ user.username|upper }} →</a></li>
-                        <li class="nav-item"><div class="text-center">
-                            <img src="{{ request.session.avatar }}" height="40px" weight="40px"/>
-                        </div></li>
-                        <li class="nav-item"><a class="btn btn-primary px-lg-4 py-1 py-lg-4" href="{% url 'logout' %}">LOGOUT</a></li>
-                        <li class="nav-item"><a class="btn btn-primary px-lg-4 py-1 py-lg-4" href="{% url 'admin:index' %}">ADMIN</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 mx-1 fs-6" href="{% url 'inicio' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 mx-1 fs-6" href="{% url 'about' %}">Sobre mí</a></li>
+                        <!-- Menú Desplegable 1 -->
+                        <li class="nav-item ml-3">
+                            <!-- <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'equipos' %}">Equipos -->
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle px-lg-3 py-3 py-lg-3 " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        BASE DE DATOS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="{% url 'mantenimientos' %}">Mantenimientos</a>
+                                        <a class="dropdown-item" href="{% url 'empleados' %}">Empleados</a>
+                                        <a class="dropdown-item" href="{% url 'equipos' %}">Equipos</a>
+                                        <a class="dropdown-item" href="{% url 'posts' %}">Posteos</a>
+                                    </div>
+                                </div>
+                            <!-- </a> -->
+                        </li>
+                        <!-- Menú Desplegable 2 -->
+                        <li class="nav-item ml-3">
+                            <!-- <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'equipos' %}">Equipos -->
+                                <div class="dropdown">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle px-lg-3 py-3 py-lg-3 mx-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ user.username|upper }}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="{% url 'editar_perfil' %}">Editar Perfil</a>
+                                        <a class="dropdown-item" href="{% url 'agregar_avatar' %}">Editar Avatar</a>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                        <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <div class="text-center mx-2">
+                                <img src="{{ request.session.avatar }}" height="40px" weight="40px"/>
+                            </div>
+                        </li>
                         {% else %}
-                        <li class="nav-item"><a class="btn btn-primary px-lg-4 py-1 py-lg-4" href="{% url 'login' %}">LOGIN</a></li>
-                        <li class="nav-item"></li><a class="btn btn-success" href="{% url 'register' %}">REGISTRO</a></li>
+                        <li class="nav-item"><a class="btn btn-primary px-lg-4 py-1 py-lg-4 mx-1" href="{% url 'login' %}">LOGIN</a></li>
+                        <li class="nav-item"></li><a class="btn btn-success px-lg-4 py-1 py-lg-4 mx-1" href="{% url 'register' %}">REGISTRO</a></li>
                         {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Page Header-->
+        {% block header %}
+
         {% block imagen_fondo %}
-        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <header class="masthead" style="background-image: url('{% static "aplicacion/assets/img/bg-index.jpg" %}')">
         {% endblock imagen_fondo %}   
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -74,67 +106,35 @@
                 </div>
             </div>
         </header>
-        <!-- Main Content-->
 
+        {% endblock header %}
+
+        <!-- Main Content-->
         <div class="container px-4 px-lg-5">
             {% block contenido %}
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
+
+                    {% for post in ultimos_posts %}
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="#">
-                            <h2 class="post-title">Nuevos procedimientos contra incendios.</h2>
-                            <h3 class="post-subtitle">Capacitación Obligatoria para todo el personal.</h3>
+                        <a href="{% url 'detail_post' post.id %}">
+                            <h2 class="post-title">{{ post.titulo }}</h2>
+                            <h3 class="post-subtitle">{{ post.subtitulo }}</h3>
                         </a>
                         <p class="post-meta">
-                            Posted by
-                            <a href="#!">Lambezat Lucas</a>
-                            20 de Julio, 2023
+                            Publicado por
+                            <a href="#!">{{ post.autor }}</a>
+                            {{ post.fecha_public }}
                         </p>
                     </div>
+
                     <!-- Divider-->
                     <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="#"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 18, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="#">
-                            <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                            <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on August 24, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="#">
-                            <h2 class="post-title">Failure is not an option</h2>
-                            <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on July 8, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
+                    {% endfor %}
+
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{% url 'posts' %}">Ver mas publicaciones →</a></div>
                 </div>
             </div>
             {% endblock contenido %}
@@ -176,8 +176,9 @@
             </div>
         </footer>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'aplicacion/js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
     </body>
 </html>

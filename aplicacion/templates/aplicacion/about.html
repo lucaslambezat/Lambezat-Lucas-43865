@@ -1,0 +1,30 @@
+{% extends 'aplicacion/index.html' %}
+{% load static %}
+
+{% block titulo %}            
+Sobre mí
+{% endblock titulo %}
+
+{% block imagen_fondo %}
+<header class="masthead" style="background-image: url('{% static "aplicacion/assets/img/bg-about.jpg" %}')">
+{% endblock imagen_fondo %}
+
+{% block subtitulo %}
+Conóceme un poco mas...            
+{% endblock subtitulo %}
+
+{% block contenido %}
+
+    <!-- Main Content-->
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>Mi nombre es Lucas Lambezat, tengo 23 años y soy de Avellaneda, Buenos Aires. Actualmente soy estudiante de Ing. Mecánica y hace tiempo que me surgió curiosidad por el mundo de la programación que conocí estando en el secundario. </p>
+                    <p>Mi objetivo profesional es fusionar mis conocimientos en ingeniería mecánica con habilidades en programación y ciencia/análisis de datos. Visualizo un futuro en el que pueda contribuir a la creación de soluciones eficientes y avanzadas mediante el análisis y la interpretación de datos en tiempo real. Ya sea optimizando procesos de fabricación, mejorando la eficiencia energética o desarrollando sistemas innovadores, aspiro a aplicar mis habilidades en el ámbito de la ingeniería.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock contenido %}

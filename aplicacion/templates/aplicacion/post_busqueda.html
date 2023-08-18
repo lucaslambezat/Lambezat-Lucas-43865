@@ -1,0 +1,15 @@
+{% extends 'aplicacion/post_list.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<h2>Ingresar el título de la publicación:</h2>
+<br>
+<form action="/aplicacion/buscar_post/" method="get">
+    {% csrf_token %}
+    <input type="text" name="titulo" id="titulo">
+    <input type="submit" value="Buscar">
+</form>
+<br>
+
+{% endblock contenido %}
